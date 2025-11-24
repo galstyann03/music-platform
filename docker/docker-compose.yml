@@ -1,0 +1,47 @@
+services:
+  postgres:
+    container_name: music_platform_db
+    image: postgres:16
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    env_file:
+      - ../.env.pgsql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - music_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U musicAdmin -d music_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  api:
+    container_name: music_platform_api
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/Dockerfile.api
+    env_file:
+      - ../.env
+    volumes:
+      - ..:/app
+      - /app/node_modules
+    ports:
+      - "3001:3000"
+    networks:
+      - music_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  music_network:
+    driver: bridge
