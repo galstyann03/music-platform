@@ -1,8 +1,24 @@
+import { config } from './configs/config';
+import { logger } from './configs/winston.config';
+import AppDataSource from './configs/data-source';
 import app from './app';
 
-const PORT = process.env.PORT || 3000;
+const startServer = async () => {
+    try {
+        await AppDataSource.initialize();
+        logger.info('Database connection established');
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`API Documentation available at http://localhost:${PORT}/api-docs`);
-});
+        await AppDataSource.runMigrations();
+        logger.info('Migrations executed');
+
+        app.listen(config.PORT, config.HOST, () => {
+            logger.info(`Server is running on ${config.HOST}:${config.PORT}`);
+            logger.level = config.LOG_LEVEL;
+        });
+    } catch (error) {
+        logger.error('Error during Data Source initialization', error);
+        process.exit(1);
+    }
+};
+
+startServer().then(() => 'Starting Database...');

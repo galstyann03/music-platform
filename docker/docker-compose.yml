@@ -26,6 +26,10 @@ services:
       dockerfile: docker/dockerfiles/Dockerfile.api
     env_file:
       - ../.env
+    environment:
+      - PORT=3000
+      - DB_HOST=postgres
+      - DB_PORT=5432
     volumes:
       - ..:/app
       - /app/node_modules
