@@ -27,14 +27,14 @@ services:
     env_file:
       - ../.env
     environment:
-      - PORT=3000
+      - PORT=3001
       - DB_HOST=postgres
       - DB_PORT=5432
     volumes:
       - ..:/app
       - /app/node_modules
     ports:
-      - "3001:3000"
+      - "3001:3001"
     networks:
       - music_network
     depends_on:

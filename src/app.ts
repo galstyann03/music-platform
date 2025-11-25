@@ -1,26 +1,24 @@
 import express from 'express';
-import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+
+import routes from './routes/index';
+import swaggerSpec from './configs/swagger.config';
+import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
+import { morganMiddleware } from './middlewares/morgan.middleware';
+import { addCors } from './middlewares/cors.middleware';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+addCors(app);
+app.use(morganMiddleware);
 
-app.get('/health', (req, res) => {
-    res.status(200).json({ 
-        status: 'OK', 
-        message: 'Music Platform API is running',
-        timestamp: new Date().toISOString(),
-    });
-});
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        name: 'Music Platform API',
-        version: '1.0.0',
-        description: 'Spotify-like Music Platform Database System',
-    });
-});
+app.use('/', routes);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;

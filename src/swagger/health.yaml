@@ -1,0 +1,85 @@
+paths:
+  /health/readiness:
+    get:
+      summary: Check the readiness of the service
+      description: Comprehensive readiness check that verifies database connectivity
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: READY
+                  database:
+                    type: string
+                    example: connected
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2025-11-25T12:00:00.000Z"
+        '500':
+          description: Service is not ready
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: "Database connection not initialized"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2025-11-25T12:00:00.000Z"
+
+  /health/liveness:
+    get:
+      summary: Check if the service is alive
+      description: Simple liveness probe to verify the service is running and responsive
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ALIVE
+                  uptime:
+                    type: number
+                    description: Service uptime in seconds
+                    example: 3600.5
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2025-11-25T12:00:00.000Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: "Internal Server Error"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2025-11-25T12:00:00.000Z"
