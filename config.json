@@ -1,0 +1,26 @@
+{
+  "global": {
+    "VERSION": "1.0.0",
+    "PORT": 3001,
+    "HOST": "0.0.0.0",
+    "LOG_LEVEL": "debug"
+  },
+  "environments": {
+    "local": {
+      "DB_HOST": "localhost",
+      "DB_PORT": 5433,
+      "DB_NAME": "music_platform"
+    },
+    "docker": {
+      "DB_HOST": "postgres",
+      "DB_PORT": 5432,
+      "DB_NAME": "music_platform"
+    },
+    "production": {
+      "DB_HOST": "postgres",
+      "DB_PORT": 5432,
+      "DB_NAME": "music_platform"
+    }
+  }
+}
+
