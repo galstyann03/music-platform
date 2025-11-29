@@ -1,6 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express';
 
 import healthRouter from './health.routes';
+import userRouter from './user.routes';
+import artistRouter from './artist.routes';
+import albumRouter from './album.routes';
+import songRouter from './song.routes';
+import playlistRouter from './playlist.routes';
 
 const router = Router();
 
@@ -19,9 +24,11 @@ router.get('/', (req: Request, res: Response, next: NextFunction): void => {
 // Health routes
 router.use('/health', healthRouter);
 
-// TODO: Add more routes here
-// router.use('/artists', artistRoutes);
-// router.use('/albums', albumRoutes);
-// etc.
+// CRUD routes
+router.use('/users', userRouter);
+router.use('/artists', artistRouter);
+router.use('/albums', albumRouter);
+router.use('/songs', songRouter);
+router.use('/playlists', playlistRouter);
 
 export default router;
