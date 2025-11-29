@@ -1,8 +1,7 @@
 import 'reflect-metadata';
 import AppDataSource from '../configs/data-source';
 import { logger } from '../configs/winston.config';
-import { seedBaseData } from './baseData.seed';
-import { seedDependentData } from './dependentData.seed';
+import { seedUsers } from './users.seed';
 
 async function main() {
     try {
@@ -13,10 +12,9 @@ async function main() {
             logger.info('Database connection established');
         }
 
-        await seedBaseData();
-        await seedDependentData();
+        await seedUsers();
 
-        logger.info('All seeding completed successfully');
+        logger.info('Seeding completed successfully');
     } catch (error) {
         logger.error('Seeding failed:', error);
         process.exit(1);
@@ -31,4 +29,4 @@ if (require.main === module) {
     main();
 }
 
-export { seedBaseData, seedDependentData };
+export { seedUsers };
