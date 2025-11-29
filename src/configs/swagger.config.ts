@@ -18,7 +18,6 @@ const options: swaggerJSDoc.Options = {
         ],
     },
     apis: [
-        './src/routes/**/*.{js,ts}',
         './src/swagger/*.yaml',
     ],
 };
