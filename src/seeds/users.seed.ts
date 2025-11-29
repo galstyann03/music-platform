@@ -23,7 +23,9 @@ export async function seedUsers(): Promise<void> {
         logger.info('Seeding users...');
 
         const defaultPassword = 'password123';
+        const adminPassword = 'admin123';
         const passwordHash = await bcrypt.hash(defaultPassword, saltRounds);
+        const adminPasswordHash = await bcrypt.hash(adminPassword, saltRounds);
 
         const usersData = [
             {
@@ -71,10 +73,19 @@ export async function seedUsers(): Promise<void> {
                 profileImageUrl: 'https://example.com/avatars/ava.jpg',
                 isVerified: false,
             },
+            {
+                name: 'Admin User',
+                email: 'admin@example.com',
+                passwordHash: adminPasswordHash,
+                role: UserRole.ADMIN,
+                birthDate: new Date('1990-01-01'),
+                profileImageUrl: undefined,
+                isVerified: true,
+            },
         ];
 
         await userRepo.save(usersData);
-        logger.info(`Seeded ${usersData.length} users (password: ${defaultPassword})`);
+        logger.info(`Seeded ${usersData.length} users (regular users password: ${defaultPassword}, admin password: ${adminPassword})`);
 
         await queryRunner.commitTransaction();
         logger.info('Users seeding completed successfully');
