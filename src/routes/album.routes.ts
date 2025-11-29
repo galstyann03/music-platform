@@ -45,10 +45,35 @@ const albumRouter = Router();
  *     responses:
  *       201:
  *         description: Album created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Album created successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Album'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Artist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Artist not found"
  */
 albumRouter.post('/', albumController.create);
 
@@ -61,6 +86,21 @@ albumRouter.post('/', albumController.create);
  *     responses:
  *       200:
  *         description: List of all albums
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Albums retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Album'
+ *                 count:
+ *                   type: integer
+ *                   example: 10
  */
 albumRouter.get('/', albumController.findAll);
 
@@ -80,8 +120,29 @@ albumRouter.get('/', albumController.findAll);
  *     responses:
  *       200:
  *         description: Album details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Album retrieved successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Album'
  *       404:
  *         description: Album not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Album not found"
  */
 albumRouter.get('/:id', albumController.findOne);
 
@@ -119,8 +180,35 @@ albumRouter.get('/:id', albumController.findOne);
  *     responses:
  *       200:
  *         description: Album updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Album updated successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Album'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Album or Artist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Album not found"
  */
 albumRouter.put('/:id', albumController.update);
 
@@ -140,8 +228,27 @@ albumRouter.put('/:id', albumController.update);
  *     responses:
  *       200:
  *         description: Album deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Album deleted successfully"
  *       404:
  *         description: Album not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Album not found"
  */
 albumRouter.delete('/:id', albumController.remove);
 

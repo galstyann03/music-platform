@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 
 import { User, UserRole } from '../entities';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
-import { AppError } from '../utils/AppError';
+import { AppError } from '../utils';
 import { UserRepository } from '../repositories';
 
 export class UserService {

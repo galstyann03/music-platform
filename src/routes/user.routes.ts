@@ -51,10 +51,45 @@ const userRouter = Router();
  *     responses:
  *       201:
  *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User created successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               status: 400
+ *               message: "Validation failed"
+ *               errors:
+ *                 - property: "email"
+ *                   constraints:
+ *                     isEmail: "email must be an email"
+ *                 - property: "password"
+ *                   constraints:
+ *                     minLength: "password must be longer than or equal to 6 characters"
  *       409:
  *         description: User with this email already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 409
+ *                 message:
+ *                   type: string
+ *                   example: "User with this email already exists"
  */
 userRouter.post('/', userController.create);
 
@@ -67,6 +102,21 @@ userRouter.post('/', userController.create);
  *     responses:
  *       200:
  *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Users retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *                 count:
+ *                   type: integer
+ *                   example: 10
  */
 userRouter.get('/', userController.findAll);
 
@@ -86,8 +136,29 @@ userRouter.get('/', userController.findAll);
  *     responses:
  *       200:
  *         description: User details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User retrieved successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
  */
 userRouter.get('/:id', userController.findOne);
 
@@ -134,8 +205,42 @@ userRouter.get('/:id', userController.findOne);
  *     responses:
  *       200:
  *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User updated successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               status: 400
+ *               message: "Validation failed"
+ *               errors:
+ *                 - property: "email"
+ *                   constraints:
+ *                     isEmail: "email must be an email"
  *       404:
  *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
  */
 userRouter.put('/:id', userController.update);
 
@@ -155,8 +260,27 @@ userRouter.put('/:id', userController.update);
  *     responses:
  *       200:
  *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User deleted successfully"
  *       404:
  *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
  */
 userRouter.delete('/:id', userController.remove);
 

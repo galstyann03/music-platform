@@ -44,10 +44,35 @@ const playlistRouter = Router();
  *     responses:
  *       201:
  *         description: Playlist created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist created successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Playlist'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
  */
 playlistRouter.post('/', playlistController.create);
 
@@ -60,6 +85,21 @@ playlistRouter.post('/', playlistController.create);
  *     responses:
  *       200:
  *         description: List of all playlists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Playlists retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Playlist'
+ *                 count:
+ *                   type: integer
+ *                   example: 10
  */
 playlistRouter.get('/', playlistController.findAll);
 
@@ -79,8 +119,29 @@ playlistRouter.get('/', playlistController.findAll);
  *     responses:
  *       200:
  *         description: Playlist details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist retrieved successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Playlist'
  *       404:
  *         description: Playlist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist not found"
  */
 playlistRouter.get('/:id', playlistController.findOne);
 
@@ -114,8 +175,35 @@ playlistRouter.get('/:id', playlistController.findOne);
  *     responses:
  *       200:
  *         description: Playlist updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist updated successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Playlist'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Playlist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist not found"
  */
 playlistRouter.put('/:id', playlistController.update);
 
@@ -135,8 +223,27 @@ playlistRouter.put('/:id', playlistController.update);
  *     responses:
  *       200:
  *         description: Playlist deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist deleted successfully"
  *       404:
  *         description: Playlist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist not found"
  */
 playlistRouter.delete('/:id', playlistController.remove);
 

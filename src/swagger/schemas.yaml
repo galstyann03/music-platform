@@ -8,7 +8,7 @@ components:
           example: 400
         message:
           type: string
-          example: "Bad Request"
+          example: "Validation failed"
         errors:
           type: array
           items:
@@ -16,8 +16,167 @@ components:
             properties:
               property:
                 type: string
+                example: "email"
               constraints:
                 type: object
+                additionalProperties:
+                  type: string
+                example:
+                  isEmail: "email must be an email"
+    
+    User:
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          format: email
+          example: "john@example.com"
+        role:
+          type: string
+          enum: [user, admin]
+          example: "user"
+        birthDate:
+          type: string
+          format: date
+          nullable: true
+          example: "1990-01-01"
+        profileImageUrl:
+          type: string
+          nullable: true
+          example: "https://example.com/avatars/john.jpg"
+        isVerified:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
+    
+    Artist:
+      type: object
+      properties:
+        artistId:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Aurora Echo"
+        bio:
+          type: string
+          nullable: true
+          example: "Indie pop band known for dreamy synths and emotional lyrics."
+        country:
+          type: string
+          nullable: true
+          example: "USA"
+        debutYear:
+          type: integer
+          nullable: true
+          example: 2015
+        profileImageUrl:
+          type: string
+          nullable: true
+          example: "https://example.com/images/aurora_echo.jpg"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
+    
+    Album:
+      type: object
+      properties:
+        albumId:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "City Lights"
+        artistId:
+          type: integer
+          example: 1
+        releaseDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2021-09-10"
+        coverImageUrl:
+          type: string
+          nullable: true
+          example: "https://example.com/covers/city_lights.jpg"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
+        artist:
+          $ref: '#/components/schemas/Artist'
+    
+    Song:
+      type: object
+      properties:
+        songId:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "City Lights"
+        albumId:
+          type: integer
+          nullable: true
+          example: 1
+        duration:
+          type: integer
+          example: 215
+        releaseDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2021-09-10"
+        language:
+          type: string
+          nullable: true
+          example: "English"
+        lyrics:
+          type: string
+          nullable: true
+          example: "Lyrics for City Lights..."
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
+        album:
+          $ref: '#/components/schemas/Album'
+    
+    Playlist:
+      type: object
+      properties:
+        playlistId:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Focus Mode"
+        description:
+          type: string
+          nullable: true
+          example: "Lo-fi and chill tracks for deep work."
+        isPublic:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00Z"
+        user:
+          $ref: '#/components/schemas/User'
     
     Success:
       type: object

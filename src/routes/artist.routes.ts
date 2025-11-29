@@ -49,8 +49,22 @@ const artistRouter = Router();
  *     responses:
  *       201:
  *         description: Artist created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Artist created successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Artist'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 artistRouter.post('/', artistController.create);
 
@@ -70,12 +84,14 @@ artistRouter.post('/', artistController.create);
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: "Artists retrieved successfully"
  *                 data:
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/Artist'
  *                 count:
  *                   type: integer
+ *                   example: 10
  */
 artistRouter.get('/', artistController.findAll);
 
@@ -95,8 +111,29 @@ artistRouter.get('/', artistController.findAll);
  *     responses:
  *       200:
  *         description: Artist details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Artist retrieved successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Artist'
  *       404:
  *         description: Artist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Artist not found"
  */
 artistRouter.get('/:id', artistController.findOne);
 
@@ -138,8 +175,35 @@ artistRouter.get('/:id', artistController.findOne);
  *     responses:
  *       200:
  *         description: Artist updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Artist updated successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Artist'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Artist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Artist not found"
  */
 artistRouter.put('/:id', artistController.update);
 
@@ -159,8 +223,27 @@ artistRouter.put('/:id', artistController.update);
  *     responses:
  *       200:
  *         description: Artist deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Artist deleted successfully"
  *       404:
  *         description: Artist not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Artist not found"
  */
 artistRouter.delete('/:id', artistController.remove);
 

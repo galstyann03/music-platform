@@ -16,7 +16,7 @@ export class UserController {
             const errors = await validate(dto);
 
             if (errors.length > 0) {
-                next(AppError.badRequest('Validation failed'));
+                next(errors);
                 return;
             }
 
@@ -103,7 +103,7 @@ export class UserController {
             const errors = await validate(dto, { skipMissingProperties: true });
 
             if (errors.length > 0) {
-                next(AppError.badRequest('Validation failed'));
+                next(errors);
                 return;
             }
 

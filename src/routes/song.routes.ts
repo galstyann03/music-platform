@@ -53,10 +53,35 @@ const songRouter = Router();
  *     responses:
  *       201:
  *         description: Song created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Song created successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Song'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Album not found (if albumId provided)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Album not found"
  */
 songRouter.post('/', songController.create);
 
@@ -69,6 +94,21 @@ songRouter.post('/', songController.create);
  *     responses:
  *       200:
  *         description: List of all songs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Songs retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Song'
+ *                 count:
+ *                   type: integer
+ *                   example: 10
  */
 songRouter.get('/', songController.findAll);
 
@@ -88,8 +128,29 @@ songRouter.get('/', songController.findAll);
  *     responses:
  *       200:
  *         description: Song details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Song retrieved successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Song'
  *       404:
  *         description: Song not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Song not found"
  */
 songRouter.get('/:id', songController.findOne);
 
@@ -133,8 +194,35 @@ songRouter.get('/:id', songController.findOne);
  *     responses:
  *       200:
  *         description: Song updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Song updated successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Song'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Song or Album not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Song not found"
  */
 songRouter.put('/:id', songController.update);
 
@@ -154,8 +242,27 @@ songRouter.put('/:id', songController.update);
  *     responses:
  *       200:
  *         description: Song deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Song deleted successfully"
  *       404:
  *         description: Song not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 404
+ *                 message:
+ *                   type: string
+ *                   example: "Song not found"
  */
 songRouter.delete('/:id', songController.remove);
 
