@@ -25,10 +25,10 @@ router.get('/', (req: Request, res: Response, next: NextFunction): void => {
 router.use('/health', healthRouter);
 
 // CRUD routes
-router.use('/users', userRouter);
-router.use('/artists', artistRouter);
-router.use('/albums', albumRouter);
-router.use('/songs', songRouter);
-router.use('/playlists', playlistRouter);
+router.use('/api/users', userRouter);
+router.use('/api/artists', artistRouter);
+router.use('/api/albums', albumRouter);
+router.use('/api/songs', songRouter);
+router.use('/api/playlists', playlistRouter);
 
 export default router;
